@@ -13,10 +13,10 @@ display factorial and second to check weather the number is palindrome or not.
 	<script>
 		function checkPalindrome(){
 			var nr = parseInt($("#number").val());
-			var invers = 0;
+			var reverse = 0;
 			for (; nr > 0 ; nr = (nr - nr%10) / 10)
-				invers = invers*10 + nr%10;
-			if (invers == parseInt($("#number").val()))
+				reverse = reverse*10 + nr%10;
+			if (reverse == parseInt($("#number").val()))
 				$("#result").text(parseInt($("#number").val()) + " is a palindrome.");
 			else 
 				$("#result").text(parseInt($("#number").val()) + " is not a palindrome.");
