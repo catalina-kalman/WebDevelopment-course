@@ -1,0 +1,106 @@
+<!-- 
+Create the Ajax call for these two api's
+1. https://dummyjson.com/docs/users
+2. https://dummyjson.com/users/1
+ -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Users</title>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https:/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+	<script>
+		$(function(){
+        	$("#tabs").tabs();
+    	})
+   		
+   		$(document).ready(function(){
+   			$("#displayAllLink").click(function(){
+   				$.ajax({
+   					url:"https://dummyjson.com/users",
+   					type:"GET",
+   					success:function(data){
+   						$("#allUsers").html(displayAllUsers(data))
+   					},
+   					dataType:"json"
+   				});
+   			})
+   		})
+   		
+   		$(document).ready(function(){
+   			$("#search").click(function(){
+   				$.ajax({
+   					url:"https://dummyjson.com/users/" + $("#userID").val(),
+   					type:"GET",
+   					success:function(data){
+   						$("#userByID").html(displayUser(data))
+   					},
+   					dataType:"json"
+   				});
+   			})
+   		
+   		})
+   		
+   		function displayAllUsers(data){
+			var table = "<table border=\"1\"> <tr> <th>ID</th> <th>User Name</th> <th>First Name</th> <th>Last Name</th> </tr>"
+			
+			for(var index=0;index<10;index++){
+				table += "<tr><td>" + data.users[index].id + "</td><td>" + data.users[index].username + "</td><td>" + data.users[index].firstName + "</td><td>" + data.users[index].lastName + "</td></tr>" 
+			}
+			
+			table += "</table>"
+			return table;
+   		}
+		
+		function displayUser(data){
+			var table = "<table border=\"1\"> <tr> <th>ID</th> <th>User Name</th> <th>First Name</th> <th>Last Name</th> </tr>"
+			
+			table += "<tr><td>" + data.id + "</td><td>" + data.username + "</td><td>" + data.firstName + "</td><td>" + data.lastName + "</td></tr>" 
+			
+			table += "</table>"
+			return table;
+		}
+   		
+	
+	</script>
+</head>
+
+<body>
+	<h1>Users Database</h1>
+	
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab-1">Display All Products</a></li>
+            <li><a href="#tab-2">Search Product By ID</a></li>
+        </ul>
+        
+		<div id="tab-1">
+			<a id="displayAllLink" href="#">Display All Users</a>
+			<div id="allUsers"></div>
+		</div>
+			
+		<div id="tab-2">
+			Enter User ID: <input type="text" id="userID"><br><br>
+			<input type="button" value="Search User" id="search">
+			<div id="userByID"></div>
+		</div>
+	
+	</div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
